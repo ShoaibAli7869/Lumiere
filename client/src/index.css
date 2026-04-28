@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+    /* Fonts */
+    --font-sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+    --font-serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+
+    /* Brand colors */
+    --color-canvas: #faf7f2;
+    --color-canvas-alt: #f0eae0;
+    --color-card: #ffffff;
+    --color-band-dark: #1c1610;
+    --color-brand: #8b6914;
+    --color-cta: #c9a84c;
+    --color-cta-dark: #6b4f0f;
+    --color-ink: rgba(0, 0, 0, 0.87);
+    --color-ink-soft: rgba(0, 0, 0, 0.55);
+    --color-on-dark: #ffffff;
+    --color-on-dark-soft: rgba(255, 255, 255, 0.7);
+    --color-error: #c82014;
+
+    /* Radius */
+    --radius-pill: 50px;
+    --radius-card: 12px;
+
+    /* Shadows */
+    --shadow-card: 0 0 0.5px rgba(0, 0, 0, 0.14), 0 1px 1px rgba(0, 0, 0, 0.24);
+    --shadow-float: 0 0 6px rgba(0, 0, 0, 0.24), 0 8px 12px rgba(0, 0, 0, 0.14);
+    --shadow-nav: 0 1px 3px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.06);
+
+    /* Spacing */
+    --spacing-sp1: 0.4rem;
+    --spacing-sp2: 0.8rem;
+    --spacing-sp3: 1.6rem;
+    --spacing-sp4: 3.2rem;
+    --spacing-sp5: 4.8rem;
+    --spacing-sp6: 6.4rem;
+}
+
+@layer base {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+    body {
+        background-color: var(--color-canvas);
+        font-family: var(--font-sans);
+        letter-spacing: -0.01em;
+        color: var(--color-ink);
+        -webkit-font-smoothing: antialiased;
+    }
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-serif);
+    }
+    img {
+        transition: opacity 0.3s ease-in;
+    }
+}
+
+@layer components {
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1.5rem;
+        border-radius: var(--radius-pill);
+        font-family: var(--font-sans);
+        font-weight: 600;
+        font-size: 0.875rem;
+        letter-spacing: -0.01em;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+    .btn:active {
+        transform: scale(0.95);
+    }
+    .btn-primary {
+        background: var(--color-cta-dark);
+        color: #fff;
+    }
+    .btn-primary:hover {
+        background: var(--color-brand);
+    }
+    .btn-outline {
+        border: 1px solid var(--color-cta-dark);
+        color: var(--color-cta-dark);
+        background: transparent;
+    }
+    .btn-outline:hover {
+        background: var(--color-canvas-alt);
+    }
+    .btn-outline-white {
+        border: 1px solid #fff;
+        color: #fff;
+        background: transparent;
+    }
+    .btn-outline-white:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .card {
+        background: var(--color-card);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-card);
+    }
+}
