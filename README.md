@@ -23,3 +23,6 @@ Lumiere is a full-stack web application with a client and a server.
    # In another terminal
    cd server && npm run dev
    ```
+
+an e commerce site for jewleary
+
