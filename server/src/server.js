@@ -12,6 +12,7 @@ import orderRoutes from "./routes/orders.js";
 import uploadRoutes from "./routes/upload.js";
 import paymentRoutes from "./routes/payment.js";
 import reviewRoutes from "./routes/reviews.js";
+import reviewRouter from "./routes/reviews.js";
 import wishlistRoutes from "./routes/wishlist.js";
 
 dotenv.config();
@@ -30,7 +31,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/wishlist", wishlistRoutes);
-
+app.use("/api/reviews/:productId", reviewRouter);
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT || 5000, () =>

@@ -4,6 +4,8 @@ import { useProducts } from "@/hooks/useProducts";
 import { productService } from "@/services/productService";
 import ProductCard from "@/components/product/ProductCard";
 import ProductFilters from "@/components/product/ProductFilters";
+import { Helmet } from "react-helmet-async";
+import { ProductCardSkeleton } from "../components/ui/Skeleton";
 
 export default function Shop() {
   const [filters, setFilters] = useState({
@@ -23,7 +25,13 @@ export default function Shop() {
       .getCategories()
       .then(({ data }) => setCategories(data.categories));
   }, []);
-
+  <Helmet>
+    <title>Shop — Lumiere</title>
+    <meta
+      name="description"
+      content="Browse our full collection of handcrafted necklaces, earrings, bracelets and rings."
+    />
+  </Helmet>;
   return (
     <div style={{ background: "var(--color-canvas)", minHeight: "100vh" }}>
       {/* Shop header band */}
@@ -108,23 +116,13 @@ export default function Shop() {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gap: "1.25rem",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+                  gap: 24,
                 }}
               >
-                {Array(6)
-                  .fill(0)
-                  .map((_, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        background: "#fff",
-                        borderRadius: "12px",
-                        height: "320px",
-                        animation: "pulse 1.5s ease-in-out infinite",
-                      }}
-                    />
-                  ))}
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <ProductCardSkeleton key={i} />
+                ))}
               </div>
             ) : products.length === 0 ? (
               <div style={{ textAlign: "center", padding: "5rem 0" }}>

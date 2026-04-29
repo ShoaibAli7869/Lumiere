@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -27,7 +28,9 @@ export default function Login() {
       setLoading(false);
     }
   };
-
+  <Helmet>
+    <title>Sign In </title>
+  </Helmet>;
   return (
     <div
       style={{

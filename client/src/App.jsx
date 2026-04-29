@@ -12,6 +12,11 @@ import Admin from "@/pages/Admin";
 import NotFound from "@/pages/NotFound";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminProducts from "./pages/admin/Products";
+import AdminOrders from "./pages/admin/Orders";
+import AdminCategories from "./pages/admin/Categories";
+
 export default function App() {
   return (
     <Routes>
@@ -30,6 +35,7 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="account"
           element={
@@ -38,15 +44,23 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="admin/*"
-          element={
-            <ProtectedRoute adminOnly>
-              <Admin />
-            </ProtectedRoute>
-          }
-        />
+
         <Route path="*" element={<NotFound />} />
+      </Route>
+
+      {/* Admin Routes */}
+      <Route
+        path="admin"
+        element={
+          <ProtectedRoute adminOnly>
+            <Admin />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<AdminDashboard />} />
+        <Route path="products" element={<AdminProducts />} />
+        <Route path="orders" element={<AdminOrders />} />
+        <Route path="categories" element={<AdminCategories />} />
       </Route>
     </Routes>
   );
