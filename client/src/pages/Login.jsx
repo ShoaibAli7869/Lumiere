@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { useAuthStore } from "@/store/authStore";
 import toast from "react-hot-toast";
-import { Helmet } from "react-helmet-async";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -28,150 +28,158 @@ export default function Login() {
       setLoading(false);
     }
   };
-  <Helmet>
-    <title>Sign In </title>
-  </Helmet>;
+
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--color-canvas)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem",
-      }}
-    >
-      <div style={{ width: "100%", maxWidth: "440px" }}>
-        {/* Logo */}
-        <Link
-          to="/"
-          style={{
-            display: "block",
-            textAlign: "center",
-            marginBottom: "2.5rem",
-            fontFamily: "var(--font-serif)",
-            fontSize: "2rem",
-            fontWeight: 400,
-            color: "var(--color-ink)",
-            textDecoration: "none",
-          }}
-        >
-          Lumiere
-        </Link>
+    <>
+      {/* FIX: Helmet must be returned as JSX */}
+      <Helmet>
+        <title>Sign In — Lumière</title>
+      </Helmet>
 
-        <div className="card" style={{ padding: "2.5rem" }}>
-          <h1
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "var(--color-canvas)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "2rem",
+        }}
+      >
+        <div style={{ width: "100%", maxWidth: "440px" }}>
+          <Link
+            to="/"
             style={{
+              display: "block",
+              textAlign: "center",
+              marginBottom: "2.5rem",
               fontFamily: "var(--font-serif)",
-              fontSize: "1.9rem",
+              fontSize: "2rem",
               fontWeight: 400,
-              marginBottom: "0.4rem",
               color: "var(--color-ink)",
+              textDecoration: "none",
             }}
           >
-            Welcome back
-          </h1>
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.85rem",
-              color: "var(--color-ink-soft)",
-              marginBottom: "2rem",
-            }}
-          >
-            Sign in to your account
-          </p>
+            Lumière
+          </Link>
 
-          <form
-            onSubmit={onSubmit}
-            style={{ display: "flex", flexDirection: "column", gap: "1.1rem" }}
-          >
-            <Field label="Email address">
-              <input
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={onChange}
-                required
-                autoComplete="email"
-                placeholder="you@example.com"
-                style={inputStyle}
-              />
-            </Field>
+          <div className="card" style={{ padding: "2.5rem" }}>
+            <h1
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "1.9rem",
+                fontWeight: 400,
+                marginBottom: "0.4rem",
+                color: "var(--color-ink)",
+              }}
+            >
+              Welcome back
+            </h1>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.85rem",
+                color: "var(--color-ink-soft)",
+                marginBottom: "2rem",
+              }}
+            >
+              Sign in to your account
+            </p>
 
-            <Field label="Password">
-              <div style={{ position: "relative" }}>
+            <form
+              onSubmit={onSubmit}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.1rem",
+              }}
+            >
+              <Field label="Email address">
                 <input
-                  name="password"
-                  type={show ? "text" : "password"}
-                  value={form.password}
+                  name="email"
+                  type="email"
+                  value={form.email}
                   onChange={onChange}
                   required
-                  autoComplete="current-password"
-                  placeholder="••••••••"
-                  style={{ ...inputStyle, paddingRight: "2.75rem" }}
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  style={inputStyle}
                 />
-                <button
-                  type="button"
-                  onClick={() => setShow((s) => !s)}
-                  style={{
-                    position: "absolute",
-                    right: "0.85rem",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    color: "var(--color-ink-soft)",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  {show ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-            </Field>
+              </Field>
 
-            <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={loading}
+              <Field label="Password">
+                <div style={{ position: "relative" }}>
+                  <input
+                    name="password"
+                    type={show ? "text" : "password"}
+                    value={form.password}
+                    onChange={onChange}
+                    required
+                    autoComplete="current-password"
+                    placeholder="••••••••"
+                    style={{ ...inputStyle, paddingRight: "2.75rem" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShow((s) => !s)}
+                    style={{
+                      position: "absolute",
+                      right: "0.85rem",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      color: "var(--color-ink-soft)",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {show ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </Field>
+
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={loading}
+                style={{
+                  width: "100%",
+                  padding: "0.75rem",
+                  marginTop: "0.5rem",
+                  opacity: loading ? 0.7 : 1,
+                }}
+              >
+                {loading ? "Signing in…" : "Sign In"}
+              </button>
+            </form>
+
+            <p
               style={{
-                width: "100%",
-                padding: "0.75rem",
-                marginTop: "0.5rem",
-                opacity: loading ? 0.7 : 1,
+                textAlign: "center",
+                marginTop: "1.5rem",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.85rem",
+                color: "var(--color-ink-soft)",
               }}
             >
-              {loading ? "Signing in…" : "Sign In"}
-            </button>
-          </form>
-
-          <p
-            style={{
-              textAlign: "center",
-              marginTop: "1.5rem",
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.85rem",
-              color: "var(--color-ink-soft)",
-            }}
-          >
-            Don't have an account?{" "}
-            <Link
-              to="/register"
-              style={{
-                color: "var(--color-cta-dark)",
-                fontWeight: 600,
-                textDecoration: "none",
-              }}
-            >
-              Create one
-            </Link>
-          </p>
+              Don't have an account?{" "}
+              <Link
+                to="/register"
+                style={{
+                  color: "var(--color-cta-dark)",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                }}
+              >
+                Create one
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

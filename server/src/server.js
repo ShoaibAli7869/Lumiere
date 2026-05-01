@@ -20,7 +20,18 @@ connectDB();
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(
+  cors({
+    origin: [
+      process.env.CLIENT_URL,
+      "https://lumiere-five-flame.vercel.app",
+      "http://localhost:5173",
+    ].filter(Boolean),
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -32,6 +43,15 @@ app.use("/api/payment", paymentRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/reviews/:productId", reviewRouter);
+
+// Handle root and favicon requests to prevent Vercel 404 CSP errors
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Lumiere API is running" });
+});
+app.get("/favicon.ico", (req, res) => {
+  res.status(204).end();
+});
+
 app.use(errorMiddleware);
 
 if (
