@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -29,7 +30,9 @@ export default function Register() {
       setLoading(false);
     }
   };
-
+  <Helmet>
+    <title>Create Account </title>
+  </Helmet>;
   return (
     <div
       style={{

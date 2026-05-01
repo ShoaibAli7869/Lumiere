@@ -7,6 +7,7 @@ import {
   deleteProduct,
   getCategories,
   createCategory,
+  deleteCategory,
 } from "../controllers/productController.js";
 import { protect } from "../middleware/authMiddleware.js";
 import { isAdmin } from "../middleware/adminMiddleware.js";
@@ -20,5 +21,5 @@ router.post("/", protect, isAdmin, createProduct);
 router.patch("/:id", protect, isAdmin, updateProduct);
 router.delete("/:id", protect, isAdmin, deleteProduct);
 router.post("/categories", protect, isAdmin, createCategory);
-
+router.delete("/categories/:id", protect, isAdmin, deleteCategory);
 export default router;

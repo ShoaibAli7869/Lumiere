@@ -4,9 +4,12 @@ import { ShoppingBag, Heart, ChevronRight } from "lucide-react";
 import { useProduct } from "@/hooks/useProducts";
 import { useCartStore } from "@/store/cartStore";
 import ProductGallery from "@/components/product/ProductGallery";
+import ProductReviews from "@/components/product/ProductReviews";
 import toast from "react-hot-toast";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { useAuthStore } from "@/store/authStore";
+import { Helmet } from "react-helmet-async";
+import { ProductDetailSkeleton } from "../components/ui/Skeleton";
 
 export default function Product() {
   const { id } = useParams();
@@ -25,31 +28,7 @@ export default function Product() {
     toast.success(wishlisted ? "Removed from wishlist" : "Added to wishlist");
   };
 
-  if (loading)
-    return (
-      <div
-        style={{ maxWidth: "1200px", margin: "0 auto", padding: "4rem 2rem" }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "3rem",
-          }}
-        >
-          {[0, 1].map((i) => (
-            <div
-              key={i}
-              style={{
-                background: "#fff",
-                borderRadius: "12px",
-                height: "480px",
-              }}
-            />
-          ))}
-        </div>
-      </div>
-    );
+  if (loading) return <ProductDetailSkeleton />;
 
   if (error || !product)
     return (
@@ -80,7 +59,14 @@ export default function Product() {
     addItem(product, qty);
     toast.success(`${product.name} added to cart`);
   };
-
+  // Dynamic — use product data:
+  <Helmet>
+    <title>{product ? `${product.name} — Lumiere` : "Lumiere"}</title>
+    <meta name="description" content={product?.description?.slice(0, 155)} />
+    {product?.images?.[0] && (
+      <meta property="og:image" content={product.images[0].url} />
+    )}
+  </Helmet>;
   return (
     <div style={{ background: "var(--color-canvas)", minHeight: "100vh" }}>
       {/* Breadcrumb */}
@@ -126,14 +112,7 @@ export default function Product() {
       <div
         style={{ maxWidth: "1200px", margin: "0 auto", padding: "3rem 2rem" }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "start",
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           {/* Gallery */}
           <ProductGallery images={product.images} />
 
@@ -395,6 +374,9 @@ export default function Product() {
             </div>
           </div>
         </div>
+
+        {/* Product Reviews */}
+        {product && <ProductReviews productId={product._id} />}
       </div>
     </div>
   );

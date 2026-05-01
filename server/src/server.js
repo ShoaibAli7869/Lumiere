@@ -1,3 +1,4 @@
+import "dotenv/config";
 import "express-async-errors";
 import express from "express";
 import cors from "cors";
@@ -12,9 +13,9 @@ import orderRoutes from "./routes/orders.js";
 import uploadRoutes from "./routes/upload.js";
 import paymentRoutes from "./routes/payment.js";
 import reviewRoutes from "./routes/reviews.js";
+import reviewRouter from "./routes/reviews.js";
 import wishlistRoutes from "./routes/wishlist.js";
 
-dotenv.config();
 connectDB();
 
 const app = express();
@@ -30,9 +31,16 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/wishlist", wishlistRoutes);
-
+app.use("/api/reviews/:productId", reviewRouter);
 app.use(errorMiddleware);
 
-app.listen(process.env.PORT || 5000, () =>
-  console.log(`Server running on port ${process.env.PORT || 5000}`),
-);
+if (
+  process.env.NODE_ENV !== "production" ||
+  process.env.SERVER_ONLY === "true"
+) {
+  app.listen(process.env.PORT || 5000, () =>
+    console.log(`Server running on port ${process.env.PORT || 5000}`),
+  );
+}
+
+export default app;

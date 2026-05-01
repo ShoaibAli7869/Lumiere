@@ -57,7 +57,11 @@ export const createProduct = async (req, res) => {
   const product = await Product.create(req.body);
   res.status(201).json({ success: true, product });
 };
-
+export const deleteCategory = async (req, res) => {
+  const cat = await Category.findByIdAndDelete(req.params.id);
+  if (!cat) throw new ApiError("Category not found", 404);
+  res.json({ message: "Category deleted" });
+};
 export const updateProduct = async (req, res) => {
   const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,

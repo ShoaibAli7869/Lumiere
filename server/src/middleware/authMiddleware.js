@@ -7,8 +7,12 @@ export const protect = async (req, res, next) => {
   if (!auth?.startsWith("Bearer ")) throw new ApiError("Not authorized", 401);
 
   const token = auth.split(" ")[1];
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  req.user = await User.findById(decoded.id);
-  if (!req.user) throw new ApiError("User not found", 401);
-  next();
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "secret");
+    req.user = await User.findById(decoded.userId || decoded.id);
+    if (!req.user) throw new ApiError("User not found", 401);
+    next();
+  } catch (error) {
+    throw new ApiError("Not authorized, token failed", 401);
+  }
 };
