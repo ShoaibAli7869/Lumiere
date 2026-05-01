@@ -23,6 +23,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="shop" element={<Shop />} />
+        {/* FIX: ProductCard links to /shop/:id so route must match */}
         <Route path="shop/:id" element={<Product />} />
         <Route path="cart" element={<Cart />} />
         <Route path="login" element={<Login />} />
@@ -35,7 +36,6 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="account"
           element={
@@ -44,7 +44,6 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-
         <Route path="*" element={<NotFound />} />
       </Route>
 
