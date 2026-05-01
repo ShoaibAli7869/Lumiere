@@ -112,14 +112,7 @@ export default function Product() {
       <div
         style={{ maxWidth: "1200px", margin: "0 auto", padding: "3rem 2rem" }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "start",
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           {/* Gallery */}
           <ProductGallery images={product.images} />
 

@@ -614,6 +614,8 @@ export default function Products() {
                   </label>
                   <input
                     type="number"
+                    min="0"
+                    step="0.01"
                     value={form.price}
                     onChange={(e) =>
                       setForm((f) => ({ ...f, price: e.target.value }))
@@ -645,6 +647,8 @@ export default function Products() {
                   </label>
                   <input
                     type="number"
+                    min="0"
+                    step="0.01"
                     value={form.comparePrice}
                     onChange={(e) =>
                       setForm((f) => ({ ...f, comparePrice: e.target.value }))
@@ -714,6 +718,8 @@ export default function Products() {
                   </label>
                   <input
                     type="number"
+                    min="0"
+                    step="1"
                     value={form.stock}
                     onChange={(e) =>
                       setForm((f) => ({ ...f, stock: e.target.value }))

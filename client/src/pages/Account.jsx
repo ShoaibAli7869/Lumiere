@@ -392,7 +392,7 @@ function WishlistTab() {
     }
     api
       .get("/wishlist")
-      .then((r) => setItems(r.data))
+      .then((r) => setItems(r.data.wishlist || []))
       .catch(() => {})
       .finally(() => setLoading(false));
   }, [ids.length]);

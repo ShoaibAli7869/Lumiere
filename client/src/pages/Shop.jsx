@@ -104,7 +104,7 @@ export default function Shop() {
           />
         </div>
 
-        <div style={{ display: "flex", gap: "3rem", alignItems: "flex-start" }}>
+        <div className="flex flex-col md:flex-row gap-12 items-start">
           <ProductFilters
             filters={filters}
             setFilters={setFilters}
@@ -148,13 +148,7 @@ export default function Shop() {
               </div>
             ) : (
               <>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gap: "1.25rem",
-                  }}
-                >
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {products.map((p) => (
                     <ProductCard key={p._id} product={p} />
                   ))}
