@@ -43,6 +43,15 @@ app.use("/api/payment", paymentRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/reviews/:productId", reviewRouter);
+
+// Handle root and favicon requests to prevent Vercel 404 CSP errors
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Lumiere API is running" });
+});
+app.get("/favicon.ico", (req, res) => {
+  res.status(204).end();
+});
+
 app.use(errorMiddleware);
 
 if (
