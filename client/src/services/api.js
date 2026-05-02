@@ -1,10 +1,18 @@
 import axios from "axios";
 
-// In production on Vercel, VITE_API_URL should be set to your backend URL
-// e.g. https://your-backend.vercel.app/api
+// Helper to ensure URL ends with /api
+const getBaseUrl = () => {
+  const url = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? "https://lumiere-w1a6.vercel.app/api" : "/api");
+  if (url.startsWith("http") && !url.endsWith("/api")) {
+    return `${url.replace(/\/$/, "")}/api`;
+  }
+  return url;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "/api",
+  baseURL: getBaseUrl(),
   timeout: 15000,
+  withCredentials: true,
 });
 
 api.interceptors.request.use((cfg) => {
