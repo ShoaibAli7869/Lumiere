@@ -22,16 +22,13 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      process.env.CLIENT_URL,
-      "https://lumiere-five-flame.vercel.app",
-      "http://localhost:5173",
-    ].filter(Boolean),
+    origin: true, // Automatically reflects the request origin
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+app.options("*", cors()); // Explicitly handle preflight requests
 app.use(express.json());
 app.use(cookieParser());
 
